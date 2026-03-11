@@ -45,7 +45,6 @@
             color: white; cursor: pointer; transition: 0.3s;
         }
 
-        /* صفحة الجودات المودرن */
         .quality-container {
             border: 2px solid #5b21b6; border-radius: 25px; padding: 15px;
             background: rgba(10, 15, 30, 0.95); display: none; margin-top: 20px;
@@ -70,13 +69,11 @@
         }
         .quality-item:hover { border-color: #00e5ff; }
 
-        /* تنبيه المساعدة */
         #download-help {
             display: none; background: #facc15; color: #000;
             padding: 10px; border-radius: 10px; font-size: 12px;
-            margin-top: 15px; font-weight: bold; animation: pulse 2s infinite;
+            margin-top: 15px; font-weight: bold;
         }
-        @keyframes pulse { 0% {opacity: 1} 50% {opacity: 0.7} 100% {opacity: 1} }
 
         footer { margin-top: 40px; font-size: 11px; color: #475569; }
     </style>
@@ -129,18 +126,13 @@
     <footer>© Darsh Egypt</footer>
 
     <script>
-        // دالة التحميل الذكية
         function downloadAction(url) {
-            // محاولة التحميل عبر إنشاء رابط خفي
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'Darsh_Egypt_Video.mp4');
             link.setAttribute('target', '_blank');
             document.body.appendChild(link);
             link.click();
             link.remove();
-
-            // إظهار رسالة مساعدة لأن المتصفحات غالباً ستفتح المشغل
             document.getElementById('download-help').style.display = 'block';
         }
 
@@ -173,7 +165,14 @@
                 const la = document.getElementById('list-a');
                 lv.innerHTML = ''; la.innerHTML = '';
 
-                data.sizes.forEach(s => {
+                // --- التعديل هنا لترتيب الجودات من الأعلى للأسفل ---
+                const sortedSizes = data.sizes.sort((a, b) => {
+                    const heightA = parseInt(a.height) || 0;
+                    const heightB = parseInt(b.height) || 0;
+                    return heightB - heightA; // ترتيب تنازلي
+                });
+
+                sortedSizes.forEach(s => {
                     const isA = s.resolution === 'audio only' || !s.height;
                     const html = `
                         <div class="quality-item" onclick="downloadAction('${s.url}')">
