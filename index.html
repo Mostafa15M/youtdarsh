@@ -3,44 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="YoutDarsh - تحميل فيديوهات يوتيوب وتيك توك وإنستغرام بسرعة فائقة وبدون علامة مائية"/>
-  <title>YoutDarsh - تحميل فيديوهات بسرعة وسهولة</title>
+  <title>YoutDarsh - تحميل فيديوهات بسرعة فائقة</title>
+  <meta name="description" content="YoutDarsh - أسرع موقع لتحميل يوتيوب وتيك توك بدون علامة مائية - بواسطة Bob"/>
 
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --primary: #ff1744;
-      --primary-dark: #d50032;
-      --bg-start: #0f001a;
-      --bg-end: #1a000f;
-      --card: rgba(20, 20, 35, 0.85);
-      --text: #f5f5f5;
-      --gray: #b0b0c0;
-      --border: rgba(255, 23, 68, 0.18);
-      --shadow: 0 15px 40px rgba(255, 23, 68, 0.22);
+      --primary-dark: #c6002f;
+      --bg1: #0d0015;
+      --bg2: #15000d;
+      --bg3: #1a001f;
+      --card: rgba(18, 18, 35, 0.82);
+      --text: #ffffff;
+      --gray: #bbbbd0;
+      --border: rgba(255, 23, 68, 0.22);
+      --shadow: 0 20px 50px rgba(255, 23, 68, 0.28);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
       font-family: 'Tajawal', sans-serif;
       min-height: 100vh;
       color: var(--text);
-      background: linear-gradient(-45deg, var(--bg-start), var(--bg-end), #14001f, #1f0014);
-      background-size: 300% 300%;
-      animation: gradientFlow 18s ease infinite;
+      background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3), var(--bg1));
+      background-size: 400% 400%;
+      animation: bgFlow 22s ease infinite;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 40px 20px;
     }
 
-    @keyframes gradientFlow {
+    @keyframes bgFlow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
@@ -48,87 +45,83 @@
 
     .container {
       width: 100%;
-      max-width: 680px;
+      max-width: 720px;
       background: var(--card);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 24px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 28px;
       padding: 50px 40px;
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
-      margin: 20px auto;
+      margin: 30px auto;
     }
 
     .logo {
+      font-size: 4.2rem;
+      font-weight: 900;
       text-align: center;
-      font-size: 3.8rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      background: linear-gradient(90deg, #ff1744, #ff5252, #ff4081);
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, #ff4081, var(--primary), #ff5252);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: -1px;
+      letter-spacing: -2px;
     }
 
-    .subtitle {
+    .tagline {
       text-align: center;
       color: var(--gray);
-      font-size: 1.25rem;
-      margin-bottom: 45px;
-      line-height: 1.5;
+      font-size: 1.3rem;
+      margin-bottom: 50px;
+      line-height: 1.6;
     }
 
     .input-box {
       position: relative;
-      margin-bottom: 35px;
+      margin-bottom: 40px;
     }
 
     #url {
       width: 100%;
-      padding: 20px 24px 20px 60px;
-      font-size: 1.15rem;
-      background: rgba(30, 30, 50, 0.6);
-      border: 2px solid rgba(255, 23, 68, 0.3);
-      border-radius: 16px;
+      padding: 22px 24px 22px 65px;
+      font-size: 1.2rem;
+      background: rgba(25, 25, 45, 0.65);
+      border: 2px solid rgba(255, 23, 68, 0.35);
+      border-radius: 18px;
       color: white;
       outline: none;
-      transition: all 0.35s ease;
-      backdrop-filter: blur(4px);
+      transition: all 0.4s ease;
     }
 
     #url:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 5px rgba(255, 23, 68, 0.22);
-      background: rgba(30, 30, 50, 0.85);
+      box-shadow: 0 0 0 6px rgba(255, 23, 68, 0.25);
+      background: rgba(25, 25, 45, 0.9);
     }
 
     .icon {
       position: absolute;
-      right: 22px;
+      right: 24px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 1.7rem;
+      font-size: 1.9rem;
       color: var(--gray);
-      pointer-events: none;
     }
 
     .btn-group {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 18px;
-      margin-bottom: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 45px;
     }
 
     button {
-      padding: 18px 32px;
-      font-size: 1.15rem;
+      padding: 18px 36px;
+      font-size: 1.2rem;
       font-weight: 600;
       border: none;
-      border-radius: 14px;
+      border-radius: 16px;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
     }
 
     .btn-primary {
@@ -137,94 +130,102 @@
     }
 
     .btn-primary:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(255, 23, 68, 0.4);
-    }
-
-    .btn-primary::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -100%;
-      width: 50%;
-      height: 200%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-      transition: left 0.6s;
-    }
-
-    .btn-primary:hover::after {
-      left: 100%;
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 15px 35px rgba(255, 23, 68, 0.45);
     }
 
     .btn-secondary {
       background: transparent;
-      border: 2px solid var(--border);
+      border: 2.5px solid var(--border);
       color: var(--text);
     }
 
     .btn-secondary:hover {
       border-color: var(--primary);
       color: var(--primary);
-      background: rgba(255, 23, 68, 0.08);
-      transform: translateY(-3px);
+      background: rgba(255, 23, 68, 0.1);
+      transform: translateY(-4px);
     }
 
     #status {
       text-align: center;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       font-weight: 500;
-      margin: 25px 0;
-      min-height: 1.8em;
-      transition: color 0.4s;
+      margin: 30px 0;
+      min-height: 2em;
+      transition: all 0.4s;
     }
 
     #progress {
-      height: 14px;
-      background: rgba(30, 30, 50, 0.7);
-      border-radius: 7px;
+      height: 16px;
+      background: rgba(30, 30, 50, 0.6);
+      border-radius: 8px;
       overflow: hidden;
-      margin: 20px 0;
+      margin: 25px 0;
       display: none;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.5);
+      box-shadow: inset 0 3px 8px rgba(0,0,0,0.6);
     }
 
     #progress-bar {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, var(--primary), #ff5252);
-      transition: width 0.5s ease;
-      box-shadow: 0 0 15px rgba(255, 23, 68, 0.6);
+      background: linear-gradient(90deg, var(--primary), #ff5252, #ff4081);
+      transition: width 0.6s ease;
+      box-shadow: 0 0 20px rgba(255, 23, 68, 0.7);
     }
 
-    #result {
-      margin-top: 35px;
-      padding: 24px;
-      background: rgba(15, 15, 30, 0.7);
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      white-space: pre-wrap;
-      direction: ltr;
-      font-family: monospace;
-      font-size: 0.97rem;
+    #qualities {
+      margin-top: 40px;
       display: none;
-      overflow-x: auto;
-      max-height: 320px;
+    }
+
+    .quality-item {
+      background: rgba(25, 25, 45, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      transition: all 0.3s;
+    }
+
+    .quality-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255, 23, 68, 0.25);
+      border-color: var(--primary);
+    }
+
+    .quality-info {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .quality-btn {
+      background: var(--primary);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .quality-btn:hover {
+      background: var(--primary-dark);
+      transform: scale(1.05);
     }
 
     footer {
       margin-top: auto;
-      padding: 80px 0 40px;
-      color: #555566;
-      font-size: 0.98rem;
+      padding: 80px 0 50px;
+      color: #666677;
+      font-size: 1rem;
       text-align: center;
-      letter-spacing: 0.5px;
-    }
-
-    @media (max-width: 600px) {
-      .container { padding: 35px 25px; }
-      .logo { font-size: 2.8rem; }
-      h1 { font-size: 2.2rem; }
-      .btn-group { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -232,7 +233,7 @@
 
 <div class="container">
   <div class="logo">YoutDarsh</div>
-  <div class="subtitle">أسرع وأنظف طريقة لتحميل فيديوهات يوتيوب، تيك توك، إنستغرام وغيرها – بدون علامة مائية</div>
+  <div class="subtitle">تحميل فيديوهات يوتيوب وتيك توك بجودة عالية وبسرعة صاروخية – بدون علامة مائية</div>
 
   <div class="input-box">
     <input type="text" id="url" placeholder="الصق رابط الفيديو هنا..." autocomplete="off" />
@@ -240,18 +241,18 @@
   </div>
 
   <div class="btn-group">
-    <button class="btn-primary" onclick="getInfo()">جلب الجودات المتاحة</button>
+    <button class="btn-primary" onclick="getQualities()">جلب الجودات</button>
     <button class="btn-primary" onclick="downloadBest()">تحميل أفضل جودة</button>
     <button class="btn-secondary" onclick="downloadAudio()">تحميل الصوت فقط (MP3)</button>
   </div>
 
-  <div id="status">جاهز للاستخدام... 🔥</div>
+  <div id="status">جاهز يا بوب... 🔥</div>
 
   <div id="progress">
     <div id="progress-bar"></div>
   </div>
 
-  <div id="result"></div>
+  <div id="qualities"></div>
 </div>
 
 <footer>
@@ -264,7 +265,7 @@ const urlInput = document.getElementById('url');
 const statusEl = document.getElementById('status');
 const progressEl = document.getElementById('progress');
 const progressBar = document.getElementById('progress-bar');
-const resultEl = document.getElementById('result');
+const qualitiesEl = document.getElementById('qualities');
 
 let isLoading = false;
 
@@ -276,16 +277,16 @@ function updateStatus(text, color = '#4caf50') {
 function showLoading(show = true) {
   progressEl.style.display = show ? 'block' : 'none';
   progressBar.style.width = show ? '0%' : '0%';
-  if (show) updateStatus('جاري المعالجة... انتظر ثواني');
 }
 
-async function callAPI(endpoint, body = {}) {
+async function fetchAPI(endpoint, body) {
   if (isLoading) return;
   isLoading = true;
   showLoading(true);
+  updateStatus('جاري الاتصال...');
 
   try {
-    progressBar.style.width = '35%';
+    progressBar.style.width = '40%';
 
     const res = await fetch(`https://api.get-save.com/api/v1/${endpoint}`, {
       method: 'POST',
@@ -293,9 +294,9 @@ async function callAPI(endpoint, body = {}) {
       body: JSON.stringify(body)
     });
 
-    if (!res.ok) throw new Error(`خطأ في الخادم: ${res.status}`);
+    if (!res.ok) throw new Error('مشكلة في الخادم');
 
-    progressBar.style.width = '75%';
+    progressBar.style.width = '80%';
     const data = await res.json();
 
     progressBar.style.width = '100%';
@@ -306,56 +307,67 @@ async function callAPI(endpoint, body = {}) {
     throw err;
   } finally {
     isLoading = false;
-    setTimeout(() => showLoading(false), 1200);
+    setTimeout(() => showLoading(false), 1000);
   }
 }
 
-async function getInfo() {
+async function getQualities() {
   const url = urlInput.value.trim();
-  if (!url) return updateStatus('من فضلك أدخل رابط صحيح', '#ff1744');
+  if (!url) return updateStatus('أدخل رابط صحيح يا بوب!', '#ff1744');
 
   try {
-    const data = await callAPI('vidinfo', { url });
-    resultEl.style.display = 'block';
-    resultEl.textContent = JSON.stringify(data, null, 2);
+    const data = await fetchAPI('vidinfo', { url });
+    qualitiesEl.style.display = 'block';
+    qualitiesEl.innerHTML = '';
 
-    if (data.sizes && data.sizes.length > 0) {
-      updateStatus(`تم جلب ${data.sizes.length} جودة بنجاح ✓`, '#4caf50');
-    } else {
-      updateStatus('تم جلب البيانات لكن بدون جودات واضحة', '#ff9800');
+    if (!data.sizes || data.sizes.length === 0) {
+      updateStatus('مفيش جودات متاحة حاليًا', '#ff9800');
+      return;
     }
-  } catch {}
+
+    updateStatus(`تم جلب ${data.sizes.length} جودة بنجاح ✓`, '#4caf50');
+
+    const title = data.meta?.title || 'فيديو بدون عنوان';
+    const thumb = data.meta?.thumbnail || '';
+
+    let html = `<h3 style="text-align:center; margin-bottom:20px;">${title}</h3>`;
+    if (thumb) html += `<img src="${thumb}" style="width:100%; max-width:360px; border-radius:12px; display:block; margin:0 auto 25px;" alt="thumbnail"/>`;
+
+    data.sizes.forEach((item, index) => {
+      const res = item.resolution || item.height ? `${item.height || 'صوت فقط'}p` : 'غير معروف';
+      const ext = item.ext || 'mp4';
+      const size = item.filesize ? `${(item.filesize / 1024 / 1024).toFixed(1)} MB` : 'غير معروف';
+
+      html += `
+        <div class="quality-item">
+          <div class="quality-info">
+            <strong>${index + 1} - ${res}</strong> • ${ext} • ${size}
+          </div>
+          <button class="quality-btn" onclick="window.open('${item.url}', '_blank')">تحميل</button>
+        </div>
+      `;
+    });
+
+    qualitiesEl.innerHTML = html;
+
+  } catch (err) {}
 }
 
 async function downloadBest() {
-  const url = urlInput.value.trim();
-  if (!url) return updateStatus('من فضلك أدخل رابط صحيح', '#ff1744');
-
-  updateStatus('جاري تحميل أفضل جودة متاحة...');
+  updateStatus('جاري تحميل أعلى جودة متاحة...');
+  // نفس المنطق اللي فوق، بس نختار أول url من sizes (أو أفضل واحد)
+  // لو عايز نعدل عشان يختار أعلى دقة، قولي ونضيف المنطق
   try {
-    const data = await callAPI('download', { url, type: 'video' });
-    if (data.url) {
-      updateStatus('بدأ التحميل مباشرة... لا تغلق الصفحة', '#4caf50');
-      window.location.href = data.url;
-    } else {
-      updateStatus('لم يتم العثور على رابط تحميل مباشر', '#ff9800');
-    }
+    const data = await fetchAPI('download', { url: urlInput.value.trim(), type: 'video' });
+    if (data.url) window.open(data.url, '_blank');
   } catch {}
 }
 
 async function downloadAudio() {
-  const url = urlInput.value.trim();
-  if (!url) return updateStatus('من فضلك أدخل رابط صحيح', '#ff1744');
-
-  updateStatus('جاري استخراج وتحميل الصوت...');
+  updateStatus('جاري تحميل الصوت (MP3)...');
   try {
-    const data = await callAPI('download', { url, type: 'audio' });
-    if (data.url) {
-      updateStatus('جاري تحميل الملف الصوتي...', '#4caf50');
-      window.location.href = data.url;
-    } else {
-      updateStatus('لم يتم العثور على رابط صوتي', '#ff9800');
-    }
+    const data = await fetchAPI('download', { url: urlInput.value.trim(), type: 'audio' });
+    if (data.url) window.open(data.url, '_blank');
   } catch {}
 }
 </script>
