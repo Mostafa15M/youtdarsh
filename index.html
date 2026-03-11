@@ -3,152 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Darsh Egypt - Smart Downloader</title>
+    <title>Darsh Egypt | Premium Downloader</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* التنسيق اللي اخترته بالملي */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
-        body {
-            min-height: 100vh; color: white; display: flex; flex-direction: column;
-            align-items: center; padding: 25px; background: #020617; overflow-x: hidden;
+        :root {
+            --bg-dark: #02040a;
+            --glass: rgba(15, 23, 42, 0.7);
+            --neon-blue: #00f2ff;
+            --neon-purple: #bc13fe;
+            --text-main: #f8fafc;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+
+        body {
+            min-height: 100vh; background: var(--bg-dark); color: var(--text-main);
+            display: flex; flex-direction: column; align-items: center; padding: 20px;
+            overflow-x: hidden; position: relative;
+        }
+
+        /* تأثير الخلفية المتحركة الفخمة */
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(2px 2px at 20% 30%, #38bdf8, transparent), radial-gradient(2px 2px at 80% 40%, #a855f7, transparent);
-            background-size: 600px 600px; animation: stars 40s linear infinite; z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 242, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(188, 19, 254, 0.05) 0%, transparent 40%);
+            z-index: -1;
         }
-        @keyframes stars { 0% {transform: translateY(0)} 100% {transform: translateY(-600px)} }
-        .container { width: 100%; max-width: 480px; text-align: center; }
-        .logo { font-size: 42px; font-weight: 900; background: linear-gradient(90deg, #00e5ff, #a855f7, #00e5ff); background-size: 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: colorShift 8s linear infinite; }
-        @keyframes colorShift { 0%{background-position:0%} 100%{background-position:200%} }
-        .subtitle { color: #94a3b8; font-size: 14px; margin: 10px 0 30px; }
-        .input-box { background: rgba(15, 23, 42, 0.6); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px); }
-        #url { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #1e293b; background: #0b1225; color: white; margin-bottom: 15px; text-align: center; outline: none; }
-        .main-btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; background: linear-gradient(90deg, #00e5ff, #a855f7); color: white; cursor: pointer; transition: 0.3s; }
-        .quality-container { border: 2px solid #5b21b6; border-radius: 25px; padding: 15px; background: rgba(10, 15, 30, 0.95); display: none; margin-top: 20px; }
-        .quality-header { background: linear-gradient(90deg, #00e5ff, #a855f7); padding: 12px; border-radius: 15px; font-weight: 800; margin-bottom: 20px; }
-        .tab-group { display: flex; gap: 10px; margin-bottom: 20px; }
-        .tab { flex: 1; padding: 15px 5px; border-radius: 15px; border: 1px solid #1e293b; cursor: pointer; }
-        .tab.active { border-color: #00e5ff; background: rgba(0, 229, 255, 0.05); }
-        .quality-item { display: flex; justify-content: space-between; align-items: center; background: #161b2e; padding: 15px 20px; border-radius: 12px; margin-bottom: 8px; cursor: pointer; }
-        #download-help { display: none; background: #facc15; color: #000; padding: 10px; border-radius: 10px; font-size: 12px; margin-top: 15px; font-weight: bold; }
-        footer { margin-top: 40px; font-size: 11px; color: #475569; }
+
+        /* النجوم الصغيره */
+        .stars {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.3; z-index: -1;
+        }
+
+        .container { width: 100%; max-width: 500px; z-index: 10; animation: fadeIn 0.8s ease-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .logo-area { margin-bottom: 40px; }
+        .logo {
+            font-size: 50px; font-weight: 900; letter-spacing: -1px;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.3));
+        }
+
+        .subtitle { color: #64748b; font-size: 14px; margin-top: 5px; font-weight: 500; }
+
+        /* أيقونات المنصات بشكل مودرن */
+        .platforms-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 30px;
+        }
+        .p-item {
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.05);
+            height: 70px; border-radius: 18px; display: flex; align-items: center;
+            justify-content: center; font-size: 24px; transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .p-item:hover { 
+            transform: translateY(-5px); border-color: var(--neon-blue);
+            box-shadow: 0 10px 20px -10px var(--neon-blue);
+        }
+
+        /* صندوق الإدخال */
+        .glass-card {
+            background: var(--glass); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.08); padding: 30px;
+            border-radius: 28px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+
+        #url {
+            width: 100%; padding: 18px; border-radius: 15px; border: 2px solid #1e293b;
+            background: #020617; color: white; margin-bottom: 20px; text-align: center;
+            font-size: 15px; transition: 0.3s; outline: none;
+        }
+        #url:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0,242,255,0.1); }
+
+        .btn-glow {
+            width: 100%; padding: 18px; border: none; border-radius: 15px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            color: white; font-weight: 900; font-size: 17px; cursor: pointer;
+            transition: 0.4s; position: relative; overflow: hidden;
+        }
+        .btn-glow:hover { transform: scale(1.02); filter: brightness(1.1); box-shadow: 0 0 25px rgba(188, 19, 254, 0.4); }
+
+        /* صفحة الجودات */
+        .q-box { display: none; margin-top: 20px; text-align: right; }
+        
+        .q-header {
+            text-align: center; padding: 15px; border-radius: 15px;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 20px; font-weight: bold; color: var(--neon-blue);
+        }
+
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab-btn {
+            flex: 1; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.02);
+            border: 1px solid #1e293b; color: #94a3b8; cursor: pointer; transition: 0.3s;
+        }
+        .tab-btn.active { 
+            border-color: var(--neon-purple); color: white; 
+            background: rgba(188, 19, 254, 0.1); 
+        }
+
+        .q-item {
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            padding: 16px 20px; border-radius: 15px; margin-bottom: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: 0.3s; cursor: pointer;
+        }
+        .q-item:hover { background: rgba(255,255,255,0.05); border-color: var(--neon-blue); padding-right: 25px; }
+        .q-item i { color: var(--neon-blue); font-size: 18px; }
+
+        .help-alert {
+            background: rgba(250, 204, 21, 0.1); border: 1px solid rgba(250, 204, 21, 0.2);
+            color: #facc15; padding: 15px; border-radius: 15px; font-size: 12px;
+            margin-top: 20px; display: none; line-height: 1.6;
+        }
+
+        footer { margin-top: 50px; color: #475569; font-size: 12px; letter-spacing: 1px; }
     </style>
 </head>
 <body>
+    <div class="stars"></div>
 
-    <div class="container" id="main-page">
-        <div class="logo">Darsh Egypt</div>
-        <p class="subtitle">تنزيل من يوتيوب - تيك توك - فيسبوك - إنستا</p>
-        
-        <div style="display:flex; gap:10px; margin-bottom:30px; justify-content:center;">
-            <div class="p-icon"><i class="fab fa-instagram" style="color:#e1306c"></i></div>
-            <div class="p-icon"><i class="fab fa-facebook-f" style="color:#1877f2"></i></div>
-            <div class="p-icon"><i class="fab fa-tiktok"></i></div>
-            <div class="p-icon"><i class="fab fa-youtube" style="color:#ff0000"></i></div>
+    <div class="container" id="main-ui">
+        <div class="logo-area">
+            <h1 class="logo">Darsh Egypt</h1>
+            <p class="subtitle">Premium Media Downloader</p>
         </div>
 
-        <div class="input-box">
-            <input type="text" id="url" placeholder="أدخل رابط الفيديو هنا...">
-            <button class="main-btn" onclick="handleDarshDownload()">ابدأ التحميل الآن! ⬇</button>
-            <div id="status" style="margin-top:15px; font-size:13px; color:#94a3b8">جاهز 🔥</div>
+        <div class="platforms-grid">
+            <div class="p-item"><i class="fab fa-instagram" style="color:#ff0069"></i></div>
+            <div class="p-item"><i class="fab fa-facebook-f" style="color:#007bff"></i></div>
+            <div class="p-item"><i class="fab fa-tiktok"></i></div>
+            <div class="p-item"><i class="fab fa-youtube" style="color:#ff0000"></i></div>
+        </div>
+
+        <div class="glass-card">
+            <input type="text" id="url-input" placeholder="ألصق رابط الفيديو هنا...">
+            <button class="btn-glow" onclick="startProcess()">ابدأ التحميل الذكي <i class="fas fa-bolt"></i></button>
+            <p id="status-text" style="margin-top:15px; font-size:13px; color:#64748b;">بانتظار الرابط... 🚀</p>
         </div>
     </div>
 
-    <div class="container" id="qualities-page">
-        <div class="quality-container" id="q-box">
-            <div class="quality-header">⬇ Quality</div>
-            <div class="tab-group">
-                <div class="tab active" id="v-tab" onclick="switchTab('v')"><i class="fas fa-play"></i><br><b>فيديو</b></div>
-                <div class="tab" id="a-tab" onclick="switchTab('a')"><i class="fas fa-music"></i><br><b>صوت</b></div>
+    <div class="container" id="results-ui" style="display:none;">
+        <div class="glass-card">
+            <div class="q-header"><i class="fas fa-layer-group"></i> اختر جودة التحميل</div>
+            
+            <div class="tabs">
+                <button class="tab-btn active" id="v-tab" onclick="toggleTab('v')"><i class="fas fa-video"></i> فيديو</button>
+                <button class="tab-btn" id="a-tab" onclick="toggleTab('a')"><i class="fas fa-music"></i> صوت</button>
             </div>
-            <div id="list-v"></div>
-            <div id="list-a" style="display:none"></div>
-            <div id="download-help">⚠️ إذا فتح الفيديو للمشاهدة: اضغط على الـ (3 نقاط) أسفل الفيديو ثم اختر "تنزيل".</div>
+
+            <div id="video-results"></div>
+            <div id="audio-results" style="display:none;"></div>
+
+            <div class="help-alert" id="help-box">
+                <b>ملحوظة:</b> إذا فتح الفيديو للمشاهدة، اضغط على النقاط الثلاث (⋮) أسفل المشغل واضغط "تنزيل".
+            </div>
+
+            <button class="tab-btn" style="width:100%; margin-top:20px; border-style:dashed;" onclick="location.reload()">تحميل فيديو جديد</button>
         </div>
-        <button class="main-btn" id="back-btn" style="display:none; margin-top:20px; background:#1e293b;" onclick="location.reload()">تحميل فيديو آخر</button>
     </div>
 
-    <footer>© Darsh Egypt</footer>
+    <footer>BY DARSH EGYPT © 2026</footer>
 
     <script>
-        // دالة التحويل الذكية
-        async function handleDarshDownload() {
-            const inputUrl = document.getElementById('url').value.trim();
-            const statusEl = document.getElementById('status');
-            if(!inputUrl) return alert("حط الرابط يا غالي!");
+        function toggleTab(type) {
+            document.getElementById('v-tab').classList.toggle('active', type === 'v');
+            document.getElementById('a-tab').classList.toggle('active', type === 'a');
+            document.getElementById('video-results').style.display = type === 'v' ? 'block' : 'none';
+            document.getElementById('audio-results').style.display = type === 'a' ? 'block' : 'none';
+        }
 
-            // فحص نوع الرابط
-            const isYT = inputUrl.includes("youtube.com") || inputUrl.includes("youtu.be");
-            const isFB = inputUrl.includes("facebook.com") || inputUrl.includes("fb.watch");
-            const isTT = inputUrl.includes("tiktok.com");
-            const isIG = inputUrl.includes("instagram.com");
+        async function startProcess() {
+            const url = document.getElementById('url-input').value.trim();
+            const status = document.getElementById('status-text');
+            if(!url) return alert("من فضلك حط الرابط!");
 
-            if (isYT || isFB) {
-                // استخدام الـ API القديم لليوتيوب والفيس
-                fetchFromOldApi(inputUrl);
-            } else if (isTT || isIG) {
-                // التحويل لموقع 9xbuddy للتيك توك والإنستا
-                statusEl.innerText = "جاري تحويلك لصفحة التحميل...";
+            const isSocial = url.includes("tiktok.com") || url.includes("instagram.com");
+
+            if(isSocial) {
+                status.innerText = "جاري التحويل لـ 9xBuddy...";
+                status.style.color = var(--neon-blue);
                 setTimeout(() => {
-                    window.location.href = `https://9xbuddy.com/process?url=${encodeURIComponent(inputUrl)}`;
-                }, 1000);
+                    window.location.href = `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`;
+                }, 1200);
             } else {
-                statusEl.innerText = "الرابط غير مدعوم، جرب يوتيوب أو تيك توك!";
+                fetchQualities(url);
             }
         }
 
-        async function fetchFromOldApi(url) {
-            const statusEl = document.getElementById('status');
-            statusEl.innerText = "جاري جلب جودات الفيديو...";
+        async function fetchQualities(videoUrl) {
+            const status = document.getElementById('status-text');
+            status.innerText = "جاري سحب الجودات... ✨";
+            
             try {
                 const res = await fetch('https://api.get-save.com/api/v1/vidinfo', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({url: url})
+                    body: JSON.stringify({url: videoUrl})
                 });
                 const data = await res.json();
-                renderQualities(data);
+                
+                showResults(data);
             } catch(e) {
-                statusEl.innerText = "حدث خطأ في جلب البيانات!";
+                status.innerText = "عذراً، الرابط غير مدعوم!";
+                status.style.color = "#ff4444";
             }
         }
 
-        function renderQualities(data) {
-            document.getElementById('main-page').style.display = 'none';
-            document.getElementById('q-box').style.display = 'block';
-            document.getElementById('back-btn').style.display = 'block';
+        function showResults(data) {
+            document.getElementById('main-ui').style.display = 'none';
+            document.getElementById('results-ui').style.display = 'block';
 
-            const lv = document.getElementById('list-v');
-            const la = document.getElementById('list-a');
-            lv.innerHTML = ''; la.innerHTML = '';
+            const vContainer = document.getElementById('video-results');
+            const aContainer = document.getElementById('audio-results');
+            
+            // ترتيب الجودات تنازلياً
+            const sorted = (data.sizes || []).sort((a,b) => (parseInt(b.height)||0) - (parseInt(a.height)||0));
 
-            // ترتيب الجودات من الأعلى للأقل
-            const sorted = (data.sizes || []).sort((a, b) => (parseInt(b.height) || 0) - (parseInt(a.height) || 0));
-
-            sorted.forEach(s => {
-                const isA = s.resolution === 'audio only' || !s.height;
-                const html = `
-                    <div class="quality-item" onclick="window.open('${s.url}', '_blank'); document.getElementById('download-help').style.display='block';">
-                        <span>${isA ? 'صوت MP3' : s.height+'p'}</span>
-                        <i class="fas fa-download" style="color:#00e5ff"></i>
+            sorted.forEach(item => {
+                const isAudio = item.resolution === 'audio only' || !item.height;
+                const row = `
+                    <div class="q-item" onclick="window.open('${item.url}'); document.getElementById('help-box').style.display='block';">
+                        <span>${isAudio ? 'ملف صوتي MP3' : item.height + 'p High Quality'}</span>
+                        <i class="fas fa-chevron-left"></i>
                     </div>
                 `;
-                if(isA) la.innerHTML += html; else lv.innerHTML += html;
+                if(isAudio) aContainer.innerHTML += row;
+                else vContainer.innerHTML += row;
             });
         }
-
-        function switchTab(t) {
-            document.getElementById('v-tab').classList.toggle('active', t=='v');
-            document.getElementById('a-tab').classList.toggle('active', t=='a');
-            document.getElementById('list-v').style.display = t=='v'?'block':'none';
-            document.getElementById('list-a').style.display = t=='a'?'block':'none';
-        }
     </script>
-
-    <style>
-        .p-icon { width:65px; height:65px; border:1px solid #334155; border-radius:15px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.02); font-size:24px; }
-    </style>
 </body>
 </html>
