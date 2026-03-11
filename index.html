@@ -37,16 +37,14 @@
             opacity: 0.3; z-index: -1;
         }
 
-        /* الحاوية الرئيسية - مسؤولة عن التوسيط التام */
         .container { 
             width: 100%; max-width: 500px; z-index: 10; 
             display: flex; flex-direction: column; align-items: center;
-            animation: fadeIn 0.8s ease-out; margin-top: 60px; /* نزلنا الصفحة لتحت */
+            animation: fadeIn 0.6s ease-out; margin-top: 60px;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* منطقة اللوجو */
         .logo-area { text-align: center; margin-bottom: 40px; width: 100%; }
         .logo {
             font-size: 50px; font-weight: 900; letter-spacing: -1px;
@@ -56,7 +54,6 @@
         }
         .subtitle { color: #64748b; font-size: 15px; margin-top: 5px; font-weight: 500; }
 
-        /* أيقونات المنصات */
         .platforms-grid {
             display: flex; justify-content: center; gap: 15px; 
             margin-bottom: 40px; width: 100%; flex-wrap: wrap;
@@ -72,7 +69,6 @@
             box-shadow: 0 10px 20px -10px var(--neon-blue);
         }
 
-        /* الكارت الزجاجي (مربع التحميل) */
         .glass-card {
             width: 100%; background: var(--glass); backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.08); padding: 35px 25px;
@@ -80,22 +76,16 @@
             display: flex; flex-direction: column; align-items: center;
         }
 
-        /* مربع الإدخال (الرابط) - التعديل الجديد */
         #url-input {
             width: 100%; padding: 22px 20px; border-radius: 18px; 
             border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(20, 28, 45, 0.9); /* لون أفتح من الخلفية عشان يبان */
+            background: rgba(20, 28, 45, 0.9);
             color: white; margin-bottom: 25px; text-align: center;
             font-size: 16px; transition: 0.3s; outline: none; box-sizing: border-box;
         }
         #url-input::placeholder { color: #64748b; font-weight: 500; }
-        #url-input:focus { 
-            border-color: var(--neon-blue); 
-            background: rgba(25, 35, 55, 0.9);
-            box-shadow: 0 0 20px rgba(0,242,255,0.15); 
-        }
+        #url-input:focus { border-color: var(--neon-blue); background: rgba(25, 35, 55, 0.9); box-shadow: 0 0 20px rgba(0,242,255,0.15); }
 
-        /* زر التحميل */
         .btn-glow {
             width: 100%; padding: 20px; border: none; border-radius: 18px;
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
@@ -104,8 +94,8 @@
             box-shadow: 0 5px 15px rgba(188, 19, 254, 0.3);
         }
         .btn-glow:hover { transform: scale(1.02); filter: brightness(1.1); box-shadow: 0 0 25px rgba(188, 19, 254, 0.5); }
+        .btn-glow:active { transform: scale(0.95); }
 
-        /* صفحة الجودات */
         .q-header { text-align: center; padding: 15px; border-radius: 15px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); margin-bottom: 20px; font-weight: bold; color: var(--neon-blue); width: 100%; }
         .tabs { display: flex; gap: 10px; margin-bottom: 20px; width: 100%; }
         .tab-btn { flex: 1; padding: 15px; border-radius: 12px; background: rgba(255,255,255,0.02); border: 1px solid #1e293b; color: #94a3b8; cursor: pointer; transition: 0.3s; font-size: 16px; font-weight: bold; }
@@ -130,15 +120,15 @@
 
         <div class="platforms-grid">
             <div class="p-item"><i class="fab fa-youtube" style="color:#ff0000"></i></div>
-            <div class="p-item"><i class="fab fa-tiktok"></i></div>
+            <div class="p-item"><i class="fab fa-tiktok" style="color:#ffffff"></i></div>
             <div class="p-item"><i class="fab fa-facebook-f" style="color:#007bff"></i></div>
             <div class="p-item"><i class="fab fa-instagram" style="color:#ff0069"></i></div>
         </div>
 
         <div class="glass-card">
             <input type="text" id="url-input" placeholder="الصق رابط الفيديو هنا...">
-            <button class="btn-glow" onclick="startProcess()">ابدأ التحميل الذكي <i class="fas fa-bolt"></i></button>
-            <p id="status-text" style="margin-top:20px; font-size:14px; color:#64748b; font-weight: bold;">بانتظار الرابط... 🚀</p>
+            <button class="btn-glow" id="download-btn" onclick="startProcess()">ابدأ التحميل الذكي <i class="fas fa-bolt"></i></button>
+            <p id="status-text" style="margin-top:20px; font-size:14px; color:#64748b; font-weight: bold; text-align: center;">بانتظار الرابط... 🚀</p>
         </div>
     </div>
 
@@ -155,10 +145,10 @@
             <div id="audio-results" style="display:none;"></div>
 
             <div class="help-alert" id="help-box">
-                <b>ملحوظة:</b> إذا فتح الفيديو للمشاهدة، اضغط على النقاط الثلاث (⋮) أسفل المشغل واضغط "تنزيل".
+                <b>ملحوظة هامة:</b> إذا فتح الفيديو بدلاً من التحميل، اضغط على النقاط الثلاث (⋮) ثم اختر "تنزيل" (Download).
             </div>
 
-            <button class="tab-btn" style="width:100%; margin-top:25px; border-style:dashed;" onclick="location.reload()">تحميل فيديو جديد</button>
+            <button class="tab-btn" style="width:100%; margin-top:25px; border-style:dashed;" onclick="location.reload()">تحميل فيديو جديد 🔄</button>
         </div>
     </div>
 
@@ -175,34 +165,92 @@
         async function startProcess() {
             const url = document.getElementById('url-input').value.trim();
             const status = document.getElementById('status-text');
-            if(!url) return alert("من فضلك حط الرابط!");
+            const btn = document.getElementById('download-btn');
+            
+            if(!url) {
+                alert("يرجى وضع رابط الفيديو أولاً!");
+                return;
+            }
 
+            // تعطيل الزر مؤقتاً عشان المستخدم ميدوسش مرتين
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+
+            // لو الرابط تيك توك أو انستا
             const isSocial = url.includes("tiktok.com") || url.includes("instagram.com");
 
             if(isSocial) {
-                status.innerText = "جاري التحويل لـ 9xBuddy...";
+                status.innerText = "جاري التحويل لموقع التحميل المباشر... ⏳";
                 status.style.color = 'var(--neon-blue)';
                 setTimeout(() => {
                     window.location.href = `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`;
-                }, 1200);
+                }, 1000);
             } else {
-                fetchQualities(url);
+                fetchQualities(url, btn, status);
             }
         }
 
-        async function fetchQualities(videoUrl) {
-            const status = document.getElementById('status-text');
-            status.innerText = "جاري سحب الجودات... ✨";
+        async function fetchQualities(videoUrl, btn, status) {
+            status.innerText = "جاري سحب الجودات... الرجاء الانتظار ✨";
+            status.style.color = "var(--neon-blue)";
             
             try {
                 const res = await fetch('https://api.get-save.com/api/v1/vidinfo', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify({url: videoUrl})
                 });
+
+                if(!res.ok) throw new Error("API Not Responding");
+
                 const data = await res.json();
+                
+                // التأكد إن فيه جودات رجعت من السيرفر
+                if(!data || !data.sizes || data.sizes.length === 0) {
+                    throw new Error("No qualities found");
+                }
                 
                 showResults(data);
             } catch(e) {
-                status.innerText = "عذراً، الرابط غير مدعوم أو به مشكلة!";
-                status.style.color = "#ff
+                console.error("Error:", e);
+                status.innerText = "عذراً! الرابط غير صحيح أو السيرفر لا يدعمه ❌";
+                status.style.color = "#ff4444"; // لون أحمر للتنبيه
+                
+                // إعادة تفعيل الزر لو حصل خطأ
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            }
+        }
+
+        function showResults(data) {
+            // إخفاء الواجهة الأولى وإظهار التانية
+            document.getElementById('main-ui').style.display = 'none';
+            document.getElementById('results-ui').style.display = 'flex';
+
+            const vContainer = document.getElementById('video-results');
+            const aContainer = document.getElementById('audio-results');
+            
+            vContainer.innerHTML = '';
+            aContainer.innerHTML = '';
+
+            // ترتيب الجودات من الأعلى (1080) للأقل (144)
+            const sorted = (data.sizes || []).sort((a,b) => (parseInt(b.height)||0) - (parseInt(a.height)||0));
+
+            sorted.forEach(item => {
+                const isAudio = item.resolution === 'audio only' || !item.height;
+                const row = `
+                    <div class="q-item" onclick="window.open('${item.url}', '_blank'); document.getElementById('help-box').style.display='block';">
+                        <span>${isAudio ? 'ملف صوتي MP3 🎧' : item.height + 'p High Quality 🎬'}</span>
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                `;
+                if(isAudio) aContainer.innerHTML += row;
+                else vContainer.innerHTML += row;
+            });
+        }
+    </script>
+</body>
+</html>
