@@ -3,242 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Darsh Egypt</title>
+    <title>Darsh Egypt - Downloader</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
 
         body {
-            min-height: 100vh;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 25px;
-            background: #020617;
-            overflow-x: hidden;
-            position: relative;
+            min-height: 100vh; color: white; display: flex; flex-direction: column;
+            align-items: center; padding: 25px; background: #020617; overflow-x: hidden;
         }
 
-        /* تحريك الخلفية (النجوم) */
+        /* خلفية النجوم المتحركة */
         body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: 
                 radial-gradient(2px 2px at 20% 30%, #38bdf8, transparent),
                 radial-gradient(2px 2px at 80% 40%, #a855f7, transparent),
                 radial-gradient(2px 2px at 40% 80%, #38bdf8, transparent),
                 radial-gradient(2px 2px at 70% 70%, #a855f7, transparent);
-            background-size: 600px 600px;
-            animation: stars 40s linear infinite;
-            z-index: -1;
+            background-size: 600px 600px; animation: stars 40s linear infinite; z-index: -1;
         }
+        @keyframes stars { 0% {transform: translateY(0)} 100% {transform: translateY(-600px)} }
 
-        @keyframes stars {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-600px); }
-        }
+        .container { width: 100%; max-width: 480px; text-align: center; }
 
-        .container {
-            width: 100%;
-            max-width: 480px;
-            text-align: center;
-            animation: fadeIn 0.6s ease;
-        }
-
-        /* اللوجو المتغير بألوان هادية */
+        /* اللوجو المتغير */
         .logo {
-            font-size: 42px;
-            font-weight: 900;
+            font-size: 42px; font-weight: 900;
             background: linear-gradient(90deg, #00e5ff, #a855f7, #00e5ff);
-            background-size: 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: colorShift 8s linear infinite;
-            margin-bottom: 5px;
+            background-size: 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: colorShift 8s linear infinite; margin-bottom: 5px;
         }
+        @keyframes colorShift { 0%{background-position:0%} 100%{background-position:200%} }
 
-        @keyframes colorShift {
-            0% { background-position: 0%; }
-            100% { background-position: 200%; }
-        }
+        .subtitle { color: #94a3b8; font-size: 14px; margin-bottom: 30px; }
 
-        .subtitle {
-            color: #94a3b8;
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-
-        /* أيقونات المنصات (كبيرة زي ما طلبت) */
-        .platforms {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 35px;
-        }
-
+        /* الأيقونات الكبيرة */
+        .platforms { display: flex; justify-content: center; gap: 12px; margin-bottom: 35px; }
         .platform-card {
-            width: 70px;
-            height: 70px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 229, 255, 0.3);
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-            backdrop-filter: blur(10px);
+            flex: 1; height: 75px; background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 229, 255, 0.2); border-radius: 16px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-
-        .platform-card i { font-size: 26px; margin-bottom: 4px; }
+        .platform-card i { font-size: 24px; margin-bottom: 5px; }
         .platform-card span { font-size: 10px; color: #94a3b8; }
-
-        .platform-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 15px #00e5ff;
-            border-color: #00e5ff;
-        }
 
         /* صندوق الإدخال */
         .input-box {
-            background: rgba(15, 23, 42, 0.6);
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(15, 23, 42, 0.6); padding: 25px; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);
         }
-
         #url {
-            width: 100%;
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px solid #1e293b;
-            background: #0b1225;
-            color: white;
-            font-size: 15px;
-            outline: none;
-            margin-bottom: 15px;
-            text-align: center;
+            width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #1e293b;
+            background: #0b1225; color: white; margin-bottom: 15px; text-align: center; outline: none;
         }
-
         .main-btn {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 16px;
-            color: white;
-            background: linear-gradient(90deg, #00e5ff, #a855f7);
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.2);
+            width: 100%; padding: 16px; border: none; border-radius: 12px;
+            font-weight: 700; background: linear-gradient(90deg, #00e5ff, #a855f7);
+            color: white; cursor: pointer; transition: 0.3s;
         }
 
-        .main-btn:hover { box-shadow: 0 0 25px #00e5ff; transform: scale(1.02); }
-
-        /* --- صفحة الجودات (نفس الصورة بالظبط) --- */
+        /* --- صفحة الجودات الملي بالملي --- */
         .quality-container {
-            border: 2px solid #5b21b6; /* البرواز الموف */
-            border-radius: 25px;
-            padding: 20px;
-            background: rgba(10, 15, 30, 0.8);
-            position: relative;
-            margin-top: 20px;
+            border: 2px solid #5b21b6; border-radius: 25px; padding: 15px;
+            background: rgba(10, 15, 30, 0.9); display: none; margin-top: 20px;
         }
-
         .quality-header {
             background: linear-gradient(90deg, #00e5ff, #a855f7);
-            padding: 15px;
-            border-radius: 15px;
-            font-weight: 800;
-            font-size: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            padding: 12px; border-radius: 15px; font-weight: 800; font-size: 18px;
+            margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px;
         }
-
-        .tab-group {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
+        .tab-group { display: flex; gap: 10px; margin-bottom: 20px; }
         .tab {
-            flex: 1;
-            padding: 20px 10px;
-            border-radius: 15px;
-            background: transparent;
-            border: 2px solid #1e293b;
-            cursor: pointer;
-            position: relative;
-            transition: 0.3s;
+            flex: 1; padding: 15px 5px; border-radius: 15px; background: transparent;
+            border: 1px solid #1e293b; cursor: pointer; position: relative;
         }
-
-        .tab.active {
-            border-color: #00e5ff;
-        }
-
+        .tab.active { border-color: #00e5ff; }
         .tab.active::after {
-            content: "L";
-            position: absolute;
-            top: 10px; right: 15px;
-            transform: rotate(45deg) scaleX(-1);
-            color: #00e5ff;
-            font-weight: bold;
+            content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+            position: absolute; top: 10px; right: 12px; color: #00e5ff; font-size: 12px;
         }
+        .tab i { font-size: 20px; display: block; margin-bottom: 5px; }
+        .tab b { font-size: 13px; display: block; }
+        .tab span { font-size: 10px; color: #94a3b8; }
 
-        .tab i { font-size: 24px; display: block; margin-bottom: 8px; }
-        .tab-text { font-size: 14px; font-weight: bold; }
-        .tab-sub { font-size: 11px; color: #94a3b8; }
-
-        /* قائمة الجودات */
-        .quality-list { display: flex; flex-direction: column; gap: 10px; }
-
+        .quality-list { display: flex; flex-direction: column; gap: 8px; }
         .quality-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px 20px;
-            border-radius: 12px;
-            font-weight: 500;
-            cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            background: #161b2e; padding: 14px 20px; border-radius: 12px;
+            transition: 0.2s; cursor: pointer; border: 1px solid transparent;
         }
-
-        .quality-item:hover { background: rgba(255, 255, 255, 0.1); }
-
-        .badge-uhd {
-            background: #1e293b;
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-right: 10px;
-        }
+        .quality-item:hover { border-color: #00e5ff; background: #1e2642; }
+        .quality-item span { font-weight: bold; font-size: 14px; }
+        .badge-uhd { background: #020617; font-size: 10px; padding: 2px 6px; border-radius: 4px; border: 1px solid #334155; margin-right: 8px; }
 
         footer { margin-top: 40px; font-size: 12px; color: #475569; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
     </style>
 </head>
 <body>
 
     <div class="container" id="main-page">
         <div class="logo">Darsh Egypt</div>
-        <div class="subtitle">تنزيل من يوتيوب - تيك توك - فيسبوك - إنستا</div>
+        <p class="subtitle">تنزيل من يوتيوب - تيك توك - فيسبوك - إنستا</p>
 
         <div class="platforms">
             <div class="platform-card"><i class="fab fa-instagram" style="color:#e1306c"></i><span>إنستا</span></div>
@@ -249,82 +116,100 @@
 
         <div class="input-box">
             <input type="text" id="url" placeholder="أدخل رابط الفيديو هنا...">
-            <button class="main-btn" onclick="getQualities()">
-                <i class="fas fa-download"></i> ابدأ التحميل الآن!
-            </button>
+            <button class="main-btn" onclick="getQualities()">ابدأ التحميل الآن! ⬇</button>
             <div id="status" style="margin-top:15px; font-size:13px; color:#94a3b8">جاهز 🔥</div>
         </div>
     </div>
 
-    <div class="container" id="qualities-page" style="display:none">
-        <div class="quality-container">
-            <div class="quality-header">
-                <i class="fas fa-download"></i> Quality
-            </div>
+    <div class="container" id="qualities-page">
+        <div class="quality-container" id="q-box">
+            <div class="quality-header">⬇ Quality</div>
 
             <div class="tab-group">
-                <div class="tab active" onclick="showTab('video')">
+                <div class="tab active" id="btn-video" onclick="showTab('video')">
                     <i class="fas fa-play"></i>
-                    <div class="tab-text">الفيديومات</div>
-                    <div class="tab-sub">Video</div>
+                    <b>الفيديومات</b>
+                    <span>Video</span>
                 </div>
-                <div class="tab" onclick="showTab('audio')">
+                <div class="tab" id="btn-audio" onclick="showTab('audio')">
                     <i class="fas fa-music"></i>
-                    <div class="tab-text">الصوت</div>
-                    <div class="tab-sub">Audio</div>
+                    <b>الصوت</b>
+                    <span>Audio</span>
                 </div>
             </div>
 
-            <div id="video-tab" class="quality-list">
-                <div class="quality-item">
-                    <span>4K (2160p) <span class="badge-uhd">UHD</span></span>
-                    <i class="fas fa-arrow-down"></i>
-                </div>
-                <div class="quality-item">
-                    <span>1080p Full HD</span>
-                    <i class="fas fa-arrow-down"></i>
-                </div>
-                <div class="quality-item">
-                    <span>720p HD</span>
-                    <i class="fas fa-arrow-down"></i>
-                </div>
-            </div>
-
-            <div id="audio-tab" class="quality-list" style="display:none">
-                <div class="quality-item">
-                    <span>MP3 - 320kbps</span>
-                    <i class="fas fa-arrow-down"></i>
-                </div>
-            </div>
+            <div id="video-list" class="quality-list"></div>
+            <div id="audio-list" class="quality-list" style="display:none"></div>
         </div>
-
-        <button class="main-btn" style="margin-top:20px; background:#1e293b" onclick="location.reload()">
-            تحميل فيديو آخر
-        </button>
+        
+        <button class="main-btn" id="back-btn" style="display:none; margin-top:20px; background:#1e293b;" onclick="location.reload()">تحميل فيديو آخر</button>
     </div>
 
     <footer>© Darsh Egypt</footer>
 
     <script>
         function showTab(type) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            
-            document.getElementById('video-tab').style.display = (type === 'video') ? 'flex' : 'none';
-            document.getElementById('audio-tab').style.display = (type === 'audio') ? 'flex' : 'none';
+            document.getElementById('btn-video').classList.toggle('active', type === 'video');
+            document.getElementById('btn-audio').classList.toggle('active', type === 'audio');
+            document.getElementById('video-list').style.display = type === 'video' ? 'flex' : 'none';
+            document.getElementById('audio-list').style.display = type === 'audio' ? 'flex' : 'none';
         }
 
         async function getQualities() {
-            const url = document.getElementById('url').value;
-            if(!url) return alert("حط الرابط الأول يا حبيب أخوك");
+            const url = document.getElementById('url').value.trim();
+            const statusEl = document.getElementById('status');
+            if(!url) return alert("حط الرابط الأول يا بطل");
 
-            document.getElementById('status').innerText = "جاري جلب الجودات...";
+            statusEl.innerText = "جاري جلب الجودات...";
+            statusEl.style.color = "#00e5ff";
 
-            // محاكاة الانتقال (يمكنك ربطها بـ API الخاص بك هنا)
-            setTimeout(() => {
+            try {
+                const res = await fetch('https://api.get-save.com/api/v1/vidinfo', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({url})
+                });
+                const data = await res.json();
+
+                if(!data.sizes || data.sizes.length === 0) throw new Error();
+
+                // إظهار صفحة النتائج
                 document.getElementById('main-page').style.display = 'none';
-                document.getElementById('qualities-page').style.display = 'block';
-            }, 1500);
+                document.getElementById('q-box').style.display = 'block';
+                document.getElementById('back-btn').style.display = 'block';
+
+                const vList = document.getElementById('video-list');
+                const aList = document.getElementById('audio-list');
+                vList.innerHTML = ''; aList.innerHTML = '';
+
+                // ترتيب الجودات من الأعلى للأقل
+                const sorted = [...data.sizes].sort((a,b) => (b.height || 0) - (a.height || 0));
+
+                sorted.forEach((item, index) => {
+                    const isAudio = item.resolution === 'audio only' || !item.height;
+                    let label = '';
+                    if(!isAudio) {
+                        if(index === 0 && item.height >= 2160) label = '<span class="badge-uhd">UHD</span>';
+                        else if(item.height >= 720) label = '<span class="badge-uhd" style="color:#00e5ff">HD</span>';
+                    }
+
+                    const name = isAudio ? `صوت MP3 (${item.ext})` : `${item.height}p ${label}`;
+                    
+                    const itemHtml = `
+                        <div class="quality-item" onclick="window.open('${item.url}')">
+                            <span>${name}</span>
+                            <i class="fas fa-arrow-down" style="color:#94a3b8"></i>
+                        </div>
+                    `;
+
+                    if(isAudio) aList.innerHTML += itemHtml;
+                    else vList.innerHTML += itemHtml;
+                });
+
+            } catch(e) {
+                statusEl.innerText = "فشل جلب البيانات، تأكد من الرابط";
+                statusEl.style.color = "#ff4444";
+            }
         }
     </script>
 </body>
