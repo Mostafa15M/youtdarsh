@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Darsh Egypt</title>
+    <title>Darsh Egypt - Smart Downloader</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
+        /* التنسيق ثابت كما في الصور السابقة لضمان الشكل الجديد */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
         body {
             min-height: 100vh; color: white; display: flex; flex-direction: column;
@@ -18,63 +19,20 @@
             background-size: 600px 600px; animation: stars 40s linear infinite; z-index: -1;
         }
         @keyframes stars { 0% {transform: translateY(0)} 100% {transform: translateY(-600px)} }
-
         .container { width: 100%; max-width: 480px; text-align: center; }
-        .logo {
-            font-size: 42px; font-weight: 900;
-            background: linear-gradient(90deg, #00e5ff, #a855f7, #00e5ff);
-            background-size: 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: colorShift 8s linear infinite;
-        }
+        .logo { font-size: 42px; font-weight: 900; background: linear-gradient(90deg, #00e5ff, #a855f7, #00e5ff); background-size: 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: colorShift 8s linear infinite; }
         @keyframes colorShift { 0%{background-position:0%} 100%{background-position:200%} }
-        
         .subtitle { color: #94a3b8; font-size: 14px; margin: 10px 0 30px; }
-
-        .input-box {
-            background: rgba(15, 23, 42, 0.6); padding: 25px; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);
-        }
-        #url {
-            width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #1e293b;
-            background: #0b1225; color: white; margin-bottom: 15px; text-align: center; outline: none;
-        }
-
-        .main-btn {
-            width: 100%; padding: 16px; border: none; border-radius: 12px;
-            font-weight: 700; background: linear-gradient(90deg, #00e5ff, #a855f7);
-            color: white; cursor: pointer; transition: 0.3s;
-        }
-
-        .quality-container {
-            border: 2px solid #5b21b6; border-radius: 25px; padding: 15px;
-            background: rgba(10, 15, 30, 0.95); display: none; margin-top: 20px;
-        }
-        .quality-header {
-            background: linear-gradient(90deg, #00e5ff, #a855f7);
-            padding: 12px; border-radius: 15px; font-weight: 800; margin-bottom: 20px;
-        }
-        
+        .input-box { background: rgba(15, 23, 42, 0.6); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px); }
+        #url { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #1e293b; background: #0b1225; color: white; margin-bottom: 15px; text-align: center; outline: none; }
+        .main-btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; background: linear-gradient(90deg, #00e5ff, #a855f7); color: white; cursor: pointer; transition: 0.3s; }
+        .quality-container { border: 2px solid #5b21b6; border-radius: 25px; padding: 15px; background: rgba(10, 15, 30, 0.95); display: none; margin-top: 20px; }
+        .quality-header { background: linear-gradient(90deg, #00e5ff, #a855f7); padding: 12px; border-radius: 15px; font-weight: 800; margin-bottom: 20px; }
         .tab-group { display: flex; gap: 10px; margin-bottom: 20px; }
-        .tab {
-            flex: 1; padding: 15px 5px; border-radius: 15px; border: 1px solid #1e293b;
-            cursor: pointer; transition: 0.3s;
-        }
+        .tab { flex: 1; padding: 15px 5px; border-radius: 15px; border: 1px solid #1e293b; cursor: pointer; }
         .tab.active { border-color: #00e5ff; background: rgba(0, 229, 255, 0.05); }
-        .tab.active i { color: #00e5ff; }
-
-        .quality-item {
-            display: flex; justify-content: space-between; align-items: center;
-            background: #161b2e; padding: 15px 20px; border-radius: 12px;
-            margin-bottom: 8px; cursor: pointer; border: 1px solid transparent;
-        }
-        .quality-item:hover { border-color: #00e5ff; }
-
-        #download-help {
-            display: none; background: #facc15; color: #000;
-            padding: 10px; border-radius: 10px; font-size: 12px;
-            margin-top: 15px; font-weight: bold;
-        }
-
+        .quality-item { display: flex; justify-content: space-between; align-items: center; background: #161b2e; padding: 15px 20px; border-radius: 12px; margin-bottom: 8px; cursor: pointer; }
+        #download-help { display: none; background: #facc15; color: #000; padding: 10px; border-radius: 10px; font-size: 12px; margin-top: 15px; font-weight: bold; }
         footer { margin-top: 40px; font-size: 11px; color: #475569; }
     </style>
 </head>
@@ -101,7 +59,7 @@
 
         <div class="input-box">
             <input type="text" id="url" placeholder="أدخل رابط الفيديو هنا...">
-            <button class="main-btn" onclick="fetchData()">ابدأ التحميل الآن! ⬇</button>
+            <button class="main-btn" onclick="processDownload()">ابدأ التحميل الآن! ⬇</button>
             <div id="status" style="margin-top:15px; font-size:13px; color:#94a3b8">جاهز 🔥</div>
         </div>
     </div>
@@ -115,10 +73,7 @@
             </div>
             <div id="list-v"></div>
             <div id="list-a" style="display:none"></div>
-            
-            <div id="download-help">
-                ⚠️ إذا فتح الفيديو للمشاهدة: اضغط على الـ (3 نقاط) أسفل الفيديو ثم اختر "تنزيل" (Download).
-            </div>
+            <div id="download-help">⚠️ إذا فتح الفيديو للمشاهدة: اضغط على الـ (3 نقاط) أسفل الفيديو ثم اختر "تنزيل".</div>
         </div>
         <button class="main-btn" id="back-btn" style="display:none; margin-top:20px; background:#1e293b;" onclick="location.reload()">تحميل فيديو آخر</button>
     </div>
@@ -127,12 +82,7 @@
 
     <script>
         function downloadAction(url) {
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('target', '_blank');
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
+            window.open(url, '_blank');
             document.getElementById('download-help').style.display = 'block';
         }
 
@@ -143,46 +93,71 @@
             document.getElementById('list-a').style.display = t=='a'?'block':'none';
         }
 
-        async function fetchData() {
-            const val = document.getElementById('url').value;
-            if(!val) return alert("حط الرابط!");
-            
-            document.getElementById('status').innerText = "جاري البحث...";
+        async function processDownload() {
+            const inputUrl = document.getElementById('url').value.trim();
+            const statusEl = document.getElementById('status');
+            if(!inputUrl) return alert("حط الرابط!");
+
+            statusEl.innerText = "جاري الفحص وتحديد المنصة...";
+
+            // تحديد الـ API المناسب بناءً على الرابط
+            let apiUrl = "";
+            const isYT_FB = inputUrl.includes("youtube.com") || inputUrl.includes("youtu.be") || inputUrl.includes("facebook.com") || inputUrl.includes("fb.watch");
+            const isTT_IG = inputUrl.includes("tiktok.com") || inputUrl.includes("instagram.com");
+
+            if (isYT_FB) {
+                apiUrl = 'https://api.get-save.com/api/v1/vidinfo'; // الـ API الحالي لليوتيوب والفيس
+            } else if (isTT_IG) {
+                apiUrl = 'ضع_رابط_الـ_API_الجديد_هنا'; // استبدل هذا برابط الـ API الخاص بالتيك توك والإنستا
+            } else {
+                statusEl.innerText = "رابط غير مدعوم حالياً!";
+                return;
+            }
+
+            if (apiUrl === 'ضع_رابط_الـ_API_الجديد_هنا') {
+                statusEl.innerText = "الـ API الخاص بالتيك توك لم يضف بعد!";
+                return;
+            }
+
+            statusEl.innerText = "جاري جلب البيانات...";
             
             try {
-                const res = await fetch('https://api.get-save.com/api/v1/vidinfo', {
+                const res = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({url: val})
+                    body: JSON.stringify({url: inputUrl})
                 });
                 const data = await res.json();
                 
-                document.getElementById('main-page').style.display = 'none';
-                document.getElementById('q-box').style.display = 'block';
-                document.getElementById('back-btn').style.display = 'block';
+                // الانتقال لصفحة الجودات الموحدة
+                displayResults(data);
+            } catch(e) { 
+                statusEl.innerText = "خطأ في الاتصال بالـ API!"; 
+            }
+        }
 
-                const lv = document.getElementById('list-v');
-                const la = document.getElementById('list-a');
-                lv.innerHTML = ''; la.innerHTML = '';
+        function displayResults(data) {
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('q-box').style.display = 'block';
+            document.getElementById('back-btn').style.display = 'block';
 
-                // --- التعديل هنا لترتيب الجودات من الأعلى للأسفل ---
-                const sortedSizes = data.sizes.sort((a, b) => {
-                    const heightA = parseInt(a.height) || 0;
-                    const heightB = parseInt(b.height) || 0;
-                    return heightB - heightA; // ترتيب تنازلي
-                });
+            const lv = document.getElementById('list-v');
+            const la = document.getElementById('list-a');
+            lv.innerHTML = ''; la.innerHTML = '';
 
-                sortedSizes.forEach(s => {
-                    const isA = s.resolution === 'audio only' || !s.height;
-                    const html = `
-                        <div class="quality-item" onclick="downloadAction('${s.url}')">
-                            <span>${isA ? 'صوت MP3' : s.height+'p'}</span>
-                            <i class="fas fa-download" style="color:#00e5ff"></i>
-                        </div>
-                    `;
-                    if(isA) la.innerHTML += html; else lv.innerHTML += html;
-                });
-            } catch(e) { document.getElementById('status').innerText = "خطأ في الرابط!"; }
+            // ترتيب تنازلي للجودات (من الأعلى للأقل)
+            const sorted = (data.sizes || []).sort((a, b) => (parseInt(b.height) || 0) - (parseInt(a.height) || 0));
+
+            sorted.forEach(s => {
+                const isA = s.resolution === 'audio only' || !s.height;
+                const html = `
+                    <div class="quality-item" onclick="downloadAction('${s.url}')">
+                        <span>${isA ? 'صوت MP3' : s.height+'p'}</span>
+                        <i class="fas fa-download" style="color:#00e5ff"></i>
+                    </div>
+                `;
+                if(isA) la.innerHTML += html; else lv.innerHTML += html;
+            });
         }
     </script>
 </body>
