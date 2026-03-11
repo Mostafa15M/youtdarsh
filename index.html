@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* التنسيق ثابت كما في الصور السابقة لضمان الشكل الجديد */
+        /* التنسيق اللي اخترته بالملي */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
         body {
             min-height: 100vh; color: white; display: flex; flex-direction: column;
@@ -43,23 +43,15 @@
         <p class="subtitle">تنزيل من يوتيوب - تيك توك - فيسبوك - إنستا</p>
         
         <div style="display:flex; gap:10px; margin-bottom:30px; justify-content:center;">
-            <div style="width:65px; height:65px; border:1px solid #334155; border-radius:15px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.02)">
-                <i class="fab fa-instagram" style="font-size:24px; color:#e1306c"></i>
-            </div>
-            <div style="width:65px; height:65px; border:1px solid #334155; border-radius:15px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.02)">
-                <i class="fab fa-facebook-f" style="font-size:24px; color:#1877f2"></i>
-            </div>
-            <div style="width:65px; height:65px; border:1px solid #334155; border-radius:15px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.02)">
-                <i class="fab fa-tiktok" style="font-size:24px;"></i>
-            </div>
-            <div style="width:65px; height:65px; border:1px solid #334155; border-radius:15px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.02)">
-                <i class="fab fa-youtube" style="font-size:24px; color:#ff0000"></i>
-            </div>
+            <div class="p-icon"><i class="fab fa-instagram" style="color:#e1306c"></i></div>
+            <div class="p-icon"><i class="fab fa-facebook-f" style="color:#1877f2"></i></div>
+            <div class="p-icon"><i class="fab fa-tiktok"></i></div>
+            <div class="p-icon"><i class="fab fa-youtube" style="color:#ff0000"></i></div>
         </div>
 
         <div class="input-box">
             <input type="text" id="url" placeholder="أدخل رابط الفيديو هنا...">
-            <button class="main-btn" onclick="processDownload()">ابدأ التحميل الآن! ⬇</button>
+            <button class="main-btn" onclick="handleDarshDownload()">ابدأ التحميل الآن! ⬇</button>
             <div id="status" style="margin-top:15px; font-size:13px; color:#94a3b8">جاهز 🔥</div>
         </div>
     </div>
@@ -81,62 +73,49 @@
     <footer>© Darsh Egypt</footer>
 
     <script>
-        function downloadAction(url) {
-            window.open(url, '_blank');
-            document.getElementById('download-help').style.display = 'block';
-        }
-
-        function switchTab(t) {
-            document.getElementById('v-tab').classList.toggle('active', t=='v');
-            document.getElementById('a-tab').classList.toggle('active', t=='a');
-            document.getElementById('list-v').style.display = t=='v'?'block':'none';
-            document.getElementById('list-a').style.display = t=='a'?'block':'none';
-        }
-
-        async function processDownload() {
+        // دالة التحويل الذكية
+        async function handleDarshDownload() {
             const inputUrl = document.getElementById('url').value.trim();
             const statusEl = document.getElementById('status');
-            if(!inputUrl) return alert("حط الرابط!");
+            if(!inputUrl) return alert("حط الرابط يا غالي!");
 
-            statusEl.innerText = "جاري الفحص وتحديد المنصة...";
+            // فحص نوع الرابط
+            const isYT = inputUrl.includes("youtube.com") || inputUrl.includes("youtu.be");
+            const isFB = inputUrl.includes("facebook.com") || inputUrl.includes("fb.watch");
+            const isTT = inputUrl.includes("tiktok.com");
+            const isIG = inputUrl.includes("instagram.com");
 
-            // تحديد الـ API المناسب بناءً على الرابط
-            let apiUrl = "";
-            const isYT_FB = inputUrl.includes("youtube.com") || inputUrl.includes("youtu.be") || inputUrl.includes("facebook.com") || inputUrl.includes("fb.watch");
-            const isTT_IG = inputUrl.includes("tiktok.com") || inputUrl.includes("instagram.com");
-
-            if (isYT_FB) {
-                apiUrl = 'https://api.get-save.com/api/v1/vidinfo'; // الـ API الحالي لليوتيوب والفيس
-            } else if (isTT_IG) {
-                apiUrl = 'ضع_رابط_الـ_API_الجديد_هنا'; // استبدل هذا برابط الـ API الخاص بالتيك توك والإنستا
+            if (isYT || isFB) {
+                // استخدام الـ API القديم لليوتيوب والفيس
+                fetchFromOldApi(inputUrl);
+            } else if (isTT || isIG) {
+                // التحويل لموقع 9xbuddy للتيك توك والإنستا
+                statusEl.innerText = "جاري تحويلك لصفحة التحميل...";
+                setTimeout(() => {
+                    window.location.href = `https://9xbuddy.com/process?url=${encodeURIComponent(inputUrl)}`;
+                }, 1000);
             } else {
-                statusEl.innerText = "رابط غير مدعوم حالياً!";
-                return;
-            }
-
-            if (apiUrl === 'ضع_رابط_الـ_API_الجديد_هنا') {
-                statusEl.innerText = "الـ API الخاص بالتيك توك لم يضف بعد!";
-                return;
-            }
-
-            statusEl.innerText = "جاري جلب البيانات...";
-            
-            try {
-                const res = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({url: inputUrl})
-                });
-                const data = await res.json();
-                
-                // الانتقال لصفحة الجودات الموحدة
-                displayResults(data);
-            } catch(e) { 
-                statusEl.innerText = "خطأ في الاتصال بالـ API!"; 
+                statusEl.innerText = "الرابط غير مدعوم، جرب يوتيوب أو تيك توك!";
             }
         }
 
-        function displayResults(data) {
+        async function fetchFromOldApi(url) {
+            const statusEl = document.getElementById('status');
+            statusEl.innerText = "جاري جلب جودات الفيديو...";
+            try {
+                const res = await fetch('https://api.get-save.com/api/v1/vidinfo', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({url: url})
+                });
+                const data = await res.json();
+                renderQualities(data);
+            } catch(e) {
+                statusEl.innerText = "حدث خطأ في جلب البيانات!";
+            }
+        }
+
+        function renderQualities(data) {
             document.getElementById('main-page').style.display = 'none';
             document.getElementById('q-box').style.display = 'block';
             document.getElementById('back-btn').style.display = 'block';
@@ -145,13 +124,13 @@
             const la = document.getElementById('list-a');
             lv.innerHTML = ''; la.innerHTML = '';
 
-            // ترتيب تنازلي للجودات (من الأعلى للأقل)
+            // ترتيب الجودات من الأعلى للأقل
             const sorted = (data.sizes || []).sort((a, b) => (parseInt(b.height) || 0) - (parseInt(a.height) || 0));
 
             sorted.forEach(s => {
                 const isA = s.resolution === 'audio only' || !s.height;
                 const html = `
-                    <div class="quality-item" onclick="downloadAction('${s.url}')">
+                    <div class="quality-item" onclick="window.open('${s.url}', '_blank'); document.getElementById('download-help').style.display='block';">
                         <span>${isA ? 'صوت MP3' : s.height+'p'}</span>
                         <i class="fas fa-download" style="color:#00e5ff"></i>
                     </div>
@@ -159,6 +138,17 @@
                 if(isA) la.innerHTML += html; else lv.innerHTML += html;
             });
         }
+
+        function switchTab(t) {
+            document.getElementById('v-tab').classList.toggle('active', t=='v');
+            document.getElementById('a-tab').classList.toggle('active', t=='a');
+            document.getElementById('list-v').style.display = t=='v'?'block':'none';
+            document.getElementById('list-a').style.display = t=='a'?'block':'none';
+        }
     </script>
+
+    <style>
+        .p-icon { width:65px; height:65px; border:1px solid #334155; border-radius:15px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.02); font-size:24px; }
+    </style>
 </body>
 </html>
