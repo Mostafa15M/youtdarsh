@@ -119,21 +119,21 @@
 
         <div class="glass-card">
             <input type="text" id="url" placeholder="أدخل رابط الفيديو هنا...">
-            <button class="main-btn" onclick="handleDarshDownload()">ابدأ التحميل الآن! ⬇</button>
-            <div id="status" style="margin-top:20px; font-size:14px; color:#64748b; text-align: center; font-weight: bold;">جاهز للعمل 🔥</div>
+            <button class="main-btn" onclick="handleDarshDownload()">تحميل🔻⬇</button>
+            <div id="status" style="margin-top:20px; font-size:14px; color:#64748b; text-align: center; font-weight: bold;">BY DARSH EGYPT ©</div>
         </div>
     </div>
 
     <div class="container" id="qualities-page" style="display:none;">
         <div class="glass-card">
-            <div class="quality-header">⬇ اختر جودة التحميل</div>
+            <div class="quality-header">⬇ اختر الجودة </div>
             <div class="tab-group">
                 <div class="tab active" id="v-tab" onclick="switchTab('v')">فيديو</div>
                 <div class="tab" id="a-tab" onclick="switchTab('a')">صوت</div>
             </div>
             <div id="list-v"></div>
             <div id="list-a" style="display:none"></div>
-            <button class="tab" style="width:100%; margin-top:20px; border-style: dashed;" onclick="location.reload()">تحميل فيديو آخر 🔄</button>
+            <button class="tab" style="width:100%; margin-top:20px; border-style: dashed;" onclick="location.reload()">الصفحه الرئيسيه☄️</button>
         </div>
     </div>
 
@@ -143,10 +143,10 @@
         async function handleDarshDownload() {
             const inputUrl = document.getElementById('url').value.trim();
             const statusEl = document.getElementById('status');
-            if(!inputUrl) return alert("حط الرابط يا غالي!");
+            if(!inputUrl) return alert("ادخل الرابط🗝️");
 
             if (inputUrl.includes("tiktok.com") || inputUrl.includes("instagram.com")) {
-                statusEl.innerText = "جاري تحويلك...";
+                statusEl.innerText = "تحويل خارجي...⛓️‍💥";
                 window.location.href = `https://9xbuddy.com/process?url=${encodeURIComponent(inputUrl)}`;
             } else {
                 fetchFromOldApi(inputUrl);
@@ -155,7 +155,7 @@
 
         async function fetchFromOldApi(url) {
             const statusEl = document.getElementById('status');
-            statusEl.innerText = "جاري جلب البيانات... ✨";
+            statusEl.innerText = "فحص الرابط...🔸";
             try {
                 const res = await fetch('https://api.get-save.com/api/v1/vidinfo', {
                     method: 'POST',
