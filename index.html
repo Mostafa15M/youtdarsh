@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>YoutDarsh - تحميل يوتيوب وتيك توك وإنستا</title>
-  <meta name="description" content="YoutDarsh - أفضل موقع تحميل فيديوهات بدون علامة مائية بواسطة Bob"/>
+  <title>Darsh Egypt - تحميل فيديوهات وصوت</title>
+  <meta name="description" content="Darsh Egypt - تحميل من يوتيوب تيك توك إنستا فيسبوك بسرعة وجودة عالية بواسطة Bob"/>
 
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --bg: #000814;
-      --neon: #00f0ff;
-      --neon-pink: #ff00aa;
-      --card: rgba(10, 10, 30, 0.75);
+      --neon-blue: #00d4ff;
+      --neon-purple: #a200ff;
+      --card: rgba(8, 8, 25, 0.85);
       --text: #e0f7ff;
       --gray: #a0d0ff;
-      --border: rgba(0, 240, 255, 0.3);
-      --glow: 0 0 20px rgba(0, 240, 255, 0.6);
+      --glow: 0 0 25px rgba(0,212,255,0.6);
+      --border: rgba(0,212,255,0.25);
+      --btn-gradient: linear-gradient(135deg, #00d4ff, #a200ff);
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -25,265 +26,287 @@
     body {
       font-family: 'Tajawal', sans-serif;
       min-height: 100vh;
-      background: var(--bg) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="%23ffffff22"/><circle cx="30" cy="70" r="1.5" fill="%23ffffff22"/><circle cx="80" cy="20" r="0.8" fill="%23ffffff22"/><circle cx="60" cy="90" r="1.2" fill="%23ffffff22"/></svg>') repeat;
+      background: var(--bg);
       color: var(--text);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0,212,255,0.08) 0%, transparent 25%),
+        radial-gradient(circle at 90% 80%, rgba(162,0,255,0.08) 0%, transparent 25%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 30px 15px;
+      padding: 40px 20px;
     }
 
     .container {
       width: 100%;
       max-width: 680px;
       background: var(--card);
-      backdrop-filter: blur(12px);
-      border-radius: 24px;
-      padding: 40px 30px;
+      backdrop-filter: blur(16px);
+      border-radius: 32px;
+      padding: 60px 40px;
       border: 1px solid var(--border);
-      box-shadow: var(--glow), inset 0 0 30px rgba(0,240,255,0.08);
+      box-shadow: var(--glow);
       margin: 20px auto;
     }
 
     .logo {
-      font-size: 3.6rem;
+      font-size: 4.8rem;
       font-weight: 900;
       text-align: center;
-      margin-bottom: 12px;
-      background: linear-gradient(90deg, var(--neon), var(--neon-pink), #00ff88);
+      margin-bottom: 15px;
+      background: var(--btn-gradient);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(0,240,255,0.7);
+      text-shadow: 0 0 35px rgba(0,212,255,0.8);
     }
 
     .subtitle {
       text-align: center;
       color: var(--gray);
-      font-size: 1.25rem;
-      margin-bottom: 40px;
+      font-size: 1.35rem;
+      margin-bottom: 50px;
+      line-height: 1.7;
+    }
+
+    .platforms {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+    }
+
+    .platform-icon {
+      width: 85px;
+      height: 85px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      transition: all 0.4s;
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.08);
+      cursor: pointer;
+    }
+
+    .platform-icon:hover {
+      transform: scale(1.18) rotate(6deg);
+      box-shadow: 0 0 40px rgba(0,212,255,0.7);
     }
 
     .input-box {
       position: relative;
-      margin-bottom: 35px;
+      margin-bottom: 45px;
     }
 
     #url {
       width: 100%;
-      padding: 18px 20px 18px 60px;
-      font-size: 1.15rem;
+      padding: 24px 24px 24px 70px;
+      font-size: 1.25rem;
       background: rgba(5, 15, 40, 0.7);
       border: 2px solid var(--border);
-      border-radius: 16px;
+      border-radius: 20px;
       color: white;
       outline: none;
-      transition: all 0.35s;
+      transition: all 0.4s;
     }
 
     #url:focus {
-      border-color: var(--neon);
-      box-shadow: 0 0 0 5px rgba(0,240,255,0.25);
+      border-color: var(--neon-blue);
+      box-shadow: 0 0 0 7px rgba(0,212,255,0.3);
     }
 
     .icon {
       position: absolute;
-      right: 20px;
+      right: 26px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: var(--gray);
     }
 
-    .btn-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: center;
-      margin-bottom: 40px;
-    }
-
-    .platform-btn {
-      width: 80px;
-      height: 80px;
-      border-radius: 20px;
-      border: none;
-      font-size: 2.2rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(6px);
-      box-shadow: inset 0 0 10px rgba(255,255,255,0.08);
-    }
-
-    .platform-btn:hover {
-      transform: scale(1.12) rotate(5deg);
-      box-shadow: 0 0 25px rgba(0,240,255,0.5);
-    }
-
     .main-btn {
-      padding: 16px 40px;
-      font-size: 1.2rem;
-      font-weight: 700;
+      width: 100%;
+      padding: 22px;
+      font-size: 1.45rem;
+      font-weight: 900;
       border: none;
-      border-radius: 16px;
+      border-radius: 20px;
       cursor: pointer;
-      background: linear-gradient(135deg, var(--neon), var(--neon-pink));
+      background: var(--btn-gradient);
       color: black;
-      transition: all 0.4s;
-      box-shadow: 0 0 20px rgba(0,240,255,0.5);
+      transition: all 0.45s;
+      box-shadow: 0 0 35px rgba(0,212,255,0.7);
     }
 
     .main-btn:hover {
-      transform: translateY(-4px) scale(1.04);
-      box-shadow: 0 0 35px rgba(0,240,255,0.8);
+      transform: translateY(-6px);
+      box-shadow: 0 0 60px rgba(0,212,255,1);
     }
 
     #status {
       text-align: center;
-      font-size: 1.3rem;
-      margin: 25px 0;
+      font-size: 1.4rem;
+      margin: 35px 0;
       min-height: 2em;
     }
 
     #qualities-page {
       display: none;
-      margin-top: 40px;
+      margin-top: 60px;
+    }
+
+    .quality-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 50px;
+      background: var(--btn-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 45px rgba(0,212,255,0.8);
     }
 
     .tab-group {
       display: flex;
       justify-content: center;
-      gap: 20px;
-      margin-bottom: 30px;
+      gap: 30px;
+      margin-bottom: 50px;
     }
 
     .tab {
-      padding: 12px 32px;
-      font-size: 1.15rem;
-      font-weight: 600;
-      border-radius: 12px;
+      padding: 16px 55px;
+      font-size: 1.35rem;
+      font-weight: 700;
+      border-radius: 22px;
       cursor: pointer;
       background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-      transition: all 0.3s;
+      border: 2px solid var(--border);
+      transition: all 0.4s;
     }
 
     .tab.active {
-      background: linear-gradient(135deg, var(--neon), var(--neon-pink));
+      background: var(--btn-gradient);
       color: black;
       border: none;
-      box-shadow: 0 0 20px rgba(0,240,255,0.6);
+      box-shadow: 0 0 45px rgba(0,212,255,0.8);
+    }
+
+    .thumb {
+      width: 100%;
+      max-width: 560px;
+      border-radius: 24px;
+      margin: 0 auto 60px;
+      display: block;
+      box-shadow: 0 0 55px rgba(0,212,255,0.7);
     }
 
     .quality-list {
       display: grid;
-      gap: 16px;
+      gap: 22px;
     }
 
     .quality-card {
-      background: rgba(15, 15, 40, 0.6);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
+      background: rgba(15, 15, 40, 0.7);
+      border: 2px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 15px;
-      transition: all 0.3s;
+      gap: 25px;
+      transition: all 0.4s;
     }
 
     .quality-card:hover {
-      border-color: var(--neon);
-      box-shadow: 0 0 25px rgba(0,240,255,0.3);
-      transform: translateY(-3px);
+      border-color: var(--neon-blue);
+      box-shadow: 0 0 50px rgba(0,212,255,0.5);
+      transform: translateY(-6px);
     }
 
     .quality-info {
       flex: 1;
     }
 
-    .quality-title {
-      font-size: 1.25rem;
+    .quality-title-text {
+      font-size: 1.6rem;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
     }
 
     .quality-desc {
       color: var(--gray);
-      font-size: 0.95rem;
-    }
-
-    .thumb {
-      width: 120px;
-      height: 68px;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+      font-size: 1.1rem;
     }
 
     .dl-btn {
-      background: var(--neon);
+      background: var(--neon-blue);
       color: black;
-      padding: 12px 24px;
-      border-radius: 12px;
+      padding: 16px 36px;
+      border-radius: 18px;
       border: none;
       font-weight: 700;
+      font-size: 1.2rem;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.35s;
     }
 
     .dl-btn:hover {
-      background: var(--neon-pink);
-      transform: scale(1.08);
+      background: var(--neon-purple);
+      transform: scale(1.12);
+      box-shadow: 0 0 35px rgba(162,0,255,0.7);
     }
 
     footer {
       margin-top: auto;
-      padding: 60px 0 40px;
+      padding: 100px 0 60px;
       color: #555577;
-      font-size: 1rem;
+      font-size: 1.1rem;
       text-align: center;
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="logo">YoutDarsh</div>
-  <div class="subtitle">تحميل فيديوهات وصوت من يوتيوب - تيك توك - إنستا - فيسبوك بجودة عالية وبسرعة</div>
+<div class="container" id="main-page">
+  <div class="logo">Darsh Egypt</div>
+  <div class="subtitle">إنستا - فيسبوك - تيك توك - يوتيوب من تريل</div>
+
+  <div class="platforms">
+    <button class="platform-icon">📸</button>
+    <button class="platform-icon">📘</button>
+    <button class="platform-icon">🎵</button>
+    <button class="platform-icon">🎥</button>
+  </div>
 
   <div class="input-box">
-    <input type="text" id="url" placeholder="الصق رابط الفيديو هنا..." autocomplete="off" />
+    <input type="text" id="url" placeholder="أدخل رابط الفيديو هنا..." autocomplete="off" />
     <span class="icon">🔗</span>
   </div>
 
-  <div class="btn-group">
-    <button class="platform-btn">📸</button>
-    <button class="platform-btn">📘</button>
-    <button class="platform-btn">🎵</button>
-    <button class="platform-btn">🎥</button>
-  </div>
-
-  <button class="main-btn" onclick="getQualities()">جلب الجودات</button>
+  <button class="main-btn" onclick="getQualities()">ابدأ التحميل الآن!</button>
 
   <div id="status">جاهز يا بوب... 🔥</div>
+</div>
 
-  <div id="progress">
-    <div id="progress-bar"></div>
+<!-- صفحة الجودات -->
+<div class="container" id="qualities-page" style="display:none;">
+  <div class="quality-title">Quality</div>
+
+  <img id="thumb" class="thumb" style="display:none;" alt="thumbnail"/>
+
+  <div class="tab-group">
+    <div class="tab active" onclick="showTab('video')">الفيديوهات</div>
+    <div class="tab" onclick="showTab('audio')">الصوت</div>
   </div>
 
-  <!-- صفحة الجودات -->
-  <div id="qualities-page">
-    <div class="tab-group">
-      <div class="tab active" onclick="showTab('video')">الفيديوهات</div>
-      <div class="tab" onclick="showTab('audio')">الصوت</div>
-    </div>
-
-    <div id="video-tab" class="quality-list"></div>
-    <div id="audio-tab" class="quality-list" style="display:none;"></div>
-  </div>
+  <div id="video-tab" class="quality-list"></div>
+  <div id="audio-tab" class="quality-list" style="display:none;"></div>
 </div>
 
 <footer>
@@ -294,22 +317,15 @@
 // ──────────────────────────────────────────────
 const urlInput = document.getElementById('url');
 const statusEl = document.getElementById('status');
-const progressEl = document.getElementById('progress');
-const progressBar = document.getElementById('progress-bar');
+const mainPage = document.getElementById('main-page');
 const qualitiesPage = document.getElementById('qualities-page');
+const thumbImg = document.getElementById('thumb');
 const videoTab = document.getElementById('video-tab');
 const audioTab = document.getElementById('audio-tab');
 
-let currentData = null;
-
-function updateStatus(text, color = '#00f0ff') {
+function updateStatus(text, color = '#00d4ff') {
   statusEl.textContent = text;
   statusEl.style.color = color;
-}
-
-function showLoading(show = true) {
-  progressEl.style.display = show ? 'block' : 'none';
-  progressBar.style.width = show ? '0%' : '0%';
 }
 
 function showTab(type) {
@@ -324,8 +340,7 @@ async function getQualities() {
   const url = urlInput.value.trim();
   if (!url) return updateStatus('أدخل رابط يا وحش!', '#ff1744');
 
-  showLoading(true);
-  updateStatus('جاري جلب الجودات...');
+  updateStatus('جاري جلب الجودات... انتظر ثواني');
 
   try {
     const res = await fetch('https://api.get-save.com/api/v1/vidinfo', {
@@ -337,9 +352,8 @@ async function getQualities() {
     if (!res.ok) throw new Error('مشكلة في الخادم');
 
     const data = await res.json();
-    currentData = data;
 
-    showLoading(false);
+    mainPage.style.display = 'none';
     qualitiesPage.style.display = 'block';
 
     videoTab.innerHTML = '';
@@ -350,28 +364,29 @@ async function getQualities() {
       return;
     }
 
-    updateStatus(`تم جلب ${data.sizes.length} جودة بنجاح ✓`, '#00f0ff');
+    updateStatus(`تم جلب ${data.sizes.length} جودة بنجاح ✓`, '#00d4ff');
 
-    // عرض صورة الفيديو في الأعلى
+    // صورة الفيديو في الأعلى
     if (data.meta?.thumbnail) {
-      const thumbHtml = `<img src="${data.meta.thumbnail}" style="width:100%; max-width:420px; border-radius:16px; display:block; margin:0 auto 30px; box-shadow:0 0 30px rgba(0,240,255,0.4);" alt="thumbnail"/>`;
-      videoTab.innerHTML += thumbHtml;
+      thumbImg.src = data.meta.thumbnail;
+      thumbImg.style.display = 'block';
     }
 
-    // ترتيب من الأعلى للأدنى (نفترض أن الـ sizes جاية مرتبة)
-    data.sizes.forEach(item => {
+    // ترتيب من الأعلى للأدنى
+    const sortedSizes = [...data.sizes].sort((a, b) => (b.height || 0) - (a.height || 0));
+
+    sortedSizes.forEach(item => {
       const isAudio = item.resolution === 'audio only' || !item.height;
-      const resText = isAudio ? 'صوت فقط' : `${item.height}p`;
-      const ext = item.ext || 'mp4';
+      const resText = isAudio ? 'صوت فقط (MP3)' : `${item.height}p`;
       const sizeMB = item.filesize ? `${(item.filesize / 1024 / 1024).toFixed(1)} MB` : '';
 
       const card = `
         <div class="quality-card">
           <div class="quality-info">
-            <div class="quality-title">${resText} ${sizeMB ? `• ${sizeMB}` : ''}</div>
-            <div class="quality-desc">\( {ext} \){item.protocol ? ' • ' + item.protocol : ''}</div>
+            <div class="quality-title-text">${resText} ${sizeMB ? `• ${sizeMB}` : ''}</div>
+            <div class="quality-desc">${item.ext || 'mp4'} • ${item.protocol || 'https'}</div>
           </div>
-          <button class="dl-btn" onclick="window.open('${item.url}', '_blank')">تحميل</button>
+          <button class="dl-btn" onclick="window.open('${item.url}', '_blank')">تحميل ↓</button>
         </div>
       `;
 
@@ -384,7 +399,6 @@ async function getQualities() {
 
   } catch (err) {
     updateStatus('خطأ: ' + err.message, '#ff1744');
-    showLoading(false);
   }
 }
 </script>
