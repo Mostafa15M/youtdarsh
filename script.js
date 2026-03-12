@@ -7,49 +7,50 @@ async function handleDarshDownload() {
 
     if(!inputUrl) return alert("ادخل الرابط يا وحش🗝️");
 
-    // فحص صارم: هل الرابط يوتيوب بأي شكل من أشكاله؟
-    const isYouTube = inputUrl.includes("youtube.com") || inputUrl.includes("youtu.be") || inputUrl.includes("googleusercontent.com/youtube");
+    // فحص يوتيوب: لو الرابط فيه كلمة يوتيوب أو تبع السيرفر المختصر
+    const isYouTube = inputUrl.toLowerCase().includes("youtube") || inputUrl.includes("googleusercontent.com/youtube");
 
     if (isYouTube) {
-        // --- يوتيوب: ممنوع أي تحويل خارجي ---
         btn.disabled = true;
         btn.innerHTML = "جاري التحضير...";
         ytInfo.style.display = 'block';
 
-        // استخراج الـ ID بتاع الفيديو
+        // استخراج الـ ID
         let videoId = "";
-        if (inputUrl.includes("youtu.be/")) videoId = inputUrl.split("youtu.be/")[1].split(/[?&]/)[0];
-        else if (inputUrl.includes("v=")) videoId = new URLSearchParams(new URL(inputUrl).search).get("v");
-        else videoId = inputUrl.split("/").pop().split("?")[0];
-
-        // 1. جلب بيانات الفيديو
         try {
-            const ytRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${API_KEY}`);
-            const ytData = await ytRes.json();
-            if (ytData.items && ytData.items.length > 0) {
-                document.getElementById('yt-thumb').src = ytData.items[0].snippet.thumbnails.high.url;
-                document.getElementById('yt-title').innerText = ytData.items[0].snippet.title;
-            }
-        } catch (e) { console.log("YT API Error"); }
+            if (inputUrl.includes("v=")) videoId = new URLSearchParams(new URL(inputUrl).search).get("v");
+            else videoId = inputUrl.split("/").pop().split("?")[0];
+        } catch(e) { videoId = ""; }
 
-        // 2. جلب الجودات
+        // 1. جلب البيانات (الصورة والعنوان)
+        if(videoId) {
+            try {
+                const ytRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${API_KEY}`);
+                const ytData = await ytRes.json();
+                if (ytData.items && ytData.items.length > 0) {
+                    document.getElementById('yt-thumb').src = ytData.items[0].snippet.thumbnails.high.url;
+                    document.getElementById('yt-title').innerText = ytData.items[0].snippet.title;
+                }
+            } catch (e) { console.log("API Key Error - تأكد من القيود في جوجل"); }
+        }
+
+        // 2. جلب روابط التحميل (صفحة الدقة)
         try {
             const response = await fetch(`https://api.vkrdownloader.com/server?v=${encodeURIComponent(inputUrl)}`);
             const result = await response.json();
             if (result.status === "success" && result.data.downloads) {
                 renderQualities(result.data.downloads);
             } else {
-                alert("السيرفر مضغوط، جرب كمان شوية.");
+                alert("جرب رابط يوتيوب آخر أو انتظر دقيقة.");
                 btn.disabled = false;
                 btn.innerHTML = "تحميل ⬇";
             }
         } catch (error) {
-            alert("خطأ في الاتصال بالسيرفر.");
+            alert("خطأ في السيرفر - تأكد من حفظ إعدادات جوجل كونسول.");
             btn.disabled = false;
         }
-
     } else {
-        // --- تيك توك، فيسبوك، إنستا: طيران على الموقع القديم ---
+        // أي حاجة تانية (تيك توك، فيسبوك) تحويل للموقع القديم
         window.location.href = `https://9xbuddy.com/process?url=${encodeURIComponent(inputUrl)}`;
     }
 }
@@ -66,7 +67,7 @@ function renderQualities(downloads) {
             <div class="quality-item" onclick="window.open('${item.url}', '_blank')">
                 <div style="display:flex; flex-direction:column;">
                     <span style="font-weight:900; color:#00f2ff">${item.quality}</span>
-                    <span style="font-size:11px; color:#94a3b8;">كامل صوت وصورة ✅</span>
+                    <span style="font-size:11px; color:#94a3b8;">فيديو كامل ✅</span>
                 </div>
                 <i class="fas fa-download" style="color:#00f2ff"></i>
             </div>`;
