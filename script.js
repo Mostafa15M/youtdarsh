@@ -7,18 +7,22 @@ async function handleDarshDownload() {
 
     if(!inputUrl) return alert("ادخل الرابط يا وحش🗝️");
 
-    // فحص صارم: هل الرابط يوتيوب؟
-    const isYouTube = inputUrl.includes("youtube.com") || inputUrl.includes("youtu.be");
+    // فحص صارم: هل الرابط يوتيوب بأي شكل من أشكاله؟
+    const isYouTube = inputUrl.includes("youtube.com") || inputUrl.includes("youtu.be") || inputUrl.includes("googleusercontent.com/youtube");
 
     if (isYouTube) {
-        // --- يوتيوب: ممنوع التحويل الخارجي ---
+        // --- يوتيوب: ممنوع أي تحويل خارجي ---
         btn.disabled = true;
-        btn.innerHTML = "جاري المعالجة...";
+        btn.innerHTML = "جاري التحضير...";
         ytInfo.style.display = 'block';
 
-        // 1. جلب بيانات الفيديو من الـ API بتاعك
-        const videoId = inputUrl.includes("youtu.be") ? inputUrl.split("/").pop().split("?")[0] : new URLSearchParams(new URL(inputUrl).search).get("v");
-        
+        // استخراج الـ ID بتاع الفيديو
+        let videoId = "";
+        if (inputUrl.includes("youtu.be/")) videoId = inputUrl.split("youtu.be/")[1].split(/[?&]/)[0];
+        else if (inputUrl.includes("v=")) videoId = new URLSearchParams(new URL(inputUrl).search).get("v");
+        else videoId = inputUrl.split("/").pop().split("?")[0];
+
+        // 1. جلب بيانات الفيديو
         try {
             const ytRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${API_KEY}`);
             const ytData = await ytRes.json();
@@ -28,14 +32,14 @@ async function handleDarshDownload() {
             }
         } catch (e) { console.log("YT API Error"); }
 
-        // 2. جلب الجودات وعرضها في الصفحة التانية
+        // 2. جلب الجودات
         try {
             const response = await fetch(`https://api.vkrdownloader.com/server?v=${encodeURIComponent(inputUrl)}`);
             const result = await response.json();
             if (result.status === "success" && result.data.downloads) {
                 renderQualities(result.data.downloads);
             } else {
-                alert("عذراً، لم نتمكن من جلب الجودات حالياً.");
+                alert("السيرفر مضغوط، جرب كمان شوية.");
                 btn.disabled = false;
                 btn.innerHTML = "تحميل ⬇";
             }
@@ -45,7 +49,7 @@ async function handleDarshDownload() {
         }
 
     } else {
-        // --- أي موقع تاني: حوله فوراً للموقع القديم ---
+        // --- تيك توك، فيسبوك، إنستا: طيران على الموقع القديم ---
         window.location.href = `https://9xbuddy.com/process?url=${encodeURIComponent(inputUrl)}`;
     }
 }
@@ -57,13 +61,12 @@ function renderQualities(downloads) {
     lv.innerHTML = '';
 
     downloads.forEach(item => {
-        // تصفية الجودات اللي فيها فيديو (MP4)
         if (item.type.includes("video") || item.extension === "mp4") {
             lv.innerHTML += `
             <div class="quality-item" onclick="window.open('${item.url}', '_blank')">
                 <div style="display:flex; flex-direction:column;">
                     <span style="font-weight:900; color:#00f2ff">${item.quality}</span>
-                    <span style="font-size:11px; color:#94a3b8;">Full Video + Audio ✅</span>
+                    <span style="font-size:11px; color:#94a3b8;">كامل صوت وصورة ✅</span>
                 </div>
                 <i class="fas fa-download" style="color:#00f2ff"></i>
             </div>`;
