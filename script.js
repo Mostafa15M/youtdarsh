@@ -8,17 +8,17 @@ async function handleDarshDownload() {
 
     if(!inputUrl) return alert("ادخل الرابط يا وحش🗝️");
 
-    btn.disabled = true;
-    btn.style.opacity = "0.5";
-    status.style.display = "block";
-    ytInfo.style.display = "none";
-
-    // فحص رابط يوتيوب لجلب البيانات من الـ API الخاص بك
+    // فحص هل الرابط يوتيوب أم منصة أخرى
     const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-    const ytMatch = inputUrl.match(ytRegex);
+    const isYouTube = ytRegex.test(inputUrl);
 
-    if (ytMatch && ytMatch[1]) {
-        const videoId = ytMatch[1];
+    if (isYouTube) {
+        // --- سيناريو يوتيوب (عرض صفحة الدقة) ---
+        btn.disabled = true;
+        btn.style.opacity = "0.5";
+        status.style.display = "block";
+        
+        const videoId = inputUrl.match(ytRegex)[1];
         try {
             const ytRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${YOUTUBE_API_KEY}`);
             const ytData = await ytRes.json();
@@ -28,19 +28,22 @@ async function handleDarshDownload() {
                 ytInfo.style.display = 'block';
             }
         } catch (e) { console.log("YT API Error"); }
-    }
 
-    // جلب روابط التحميل وعرض صفحة الدقة
-    try {
-        const response = await fetch(`https://api.vkrdownloader.com/server?v=${encodeURIComponent(inputUrl)}`);
-        const result = await response.json();
-
-        if (result.status === "success" && result.data.downloads) {
-            renderQualities(result.data.downloads);
-        } else {
+        try {
+            const response = await fetch(`https://api.vkrdownloader.com/server?v=${encodeURIComponent(inputUrl)}`);
+            const result = await response.json();
+            if (result.status === "success" && result.data.downloads) {
+                renderQualities(result.data.downloads);
+            } else {
+                // تحويل احتياطي لو فشل السيرفر
+                window.location.href = `https://9xbuddy.com/process?url=${encodeURIComponent(inputUrl)}`;
+            }
+        } catch (error) {
             window.location.href = `https://9xbuddy.com/process?url=${encodeURIComponent(inputUrl)}`;
         }
-    } catch (error) {
+    } else {
+        // --- سيناريو المنصات الأخرى (تحويل مباشر) ---
+        // سيقوم بفتح المحرك الذي تفضله للمنصات الأخرى فوراً
         window.location.href = `https://9xbuddy.com/process?url=${encodeURIComponent(inputUrl)}`;
     }
 }
@@ -48,7 +51,6 @@ async function handleDarshDownload() {
 function renderQualities(downloads) {
     document.getElementById('main-page').style.display = 'none';
     document.getElementById('qualities-page').style.display = 'flex';
-    
     const lv = document.getElementById('list-v'); 
     lv.innerHTML = '';
 
@@ -64,9 +66,4 @@ function renderQualities(downloads) {
             </div>`;
         }
     });
-
-    if (lv.innerHTML === '') {
-        const inputUrl = document.getElementById('url').value.trim();
-        window.location.href = `https://9xbuddy.com/process?url=${encodeURIComponent(inputUrl)}`;
-    }
 }
